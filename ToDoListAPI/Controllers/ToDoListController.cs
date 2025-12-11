@@ -31,11 +31,19 @@ namespace ToDoListAPI.Controllers
             newTask.Create();
         }
 
-        // PUT api/<ToDoListController>/5
-        [HttpPut("{idToFinish}")]
-        public void Put(int idToFinish)
+        // PUT api/<ToDoListController>/{id}/assign
+        [HttpPut("{id}/assign")]
+        public void PutAssign(int id, [FromBody] string assignedName)
         {
-            ToDoTask finishTask = ToDoTask.Read(idToFinish);
+            ToDoTask assignTask = ToDoTask.Read(id);
+            assignTask.AssignPerson(assignedName);
+        }
+
+        // PUT api/<ToDoListController>/{id}/finish
+        [HttpPut("{id}/finish")]
+        public void PutFinish(int id)
+        {
+            ToDoTask finishTask = ToDoTask.Read(id);
             finishTask.FinishTask();
         }
 
